@@ -1,18 +1,18 @@
 #include "matrix_operations.h"
 #include <math.h>
 
-void matrix_multiply(double* a, double* b, double* result, int a_rows, int a_cols, int b_cols) {
-    for (int i = 0; i < a_rows; ++i) {
-        for (int j = 0; j < b_cols; ++j) {
-            result[i * b_cols + j] = 0.0;
-            for (int k = 0; k < a_cols; ++k) {
-                result[i * b_cols + j] += a[i * a_cols + k] * b[k * b_cols + j];
+void matrix_multiply(double* result, double* matrix1, int rows1, int cols1, double* matrix2, int rows2, int cols2) {
+    for (int i = 0; i < rows1; ++i) {
+        for (int j = 0; j < cols2; ++j) {
+            result[i * cols2 + j] = 0.0;
+            for (int k = 0; k < cols1; ++k) {
+                result[i * cols2 + j] += matrix1[i * cols1 + k] * matrix2[k * cols2 + j];
             }
         }
     }
 }
 
-void matrix_add_bias(double* matrix, double* biases, double* result, int rows, int cols) {
+void matrix_add(double* result, double* matrix, double* biases, int rows, int cols) {
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
             result[i * cols + j] = matrix[i * cols + j] + biases[j];
